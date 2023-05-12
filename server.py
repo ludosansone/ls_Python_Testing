@@ -68,7 +68,10 @@ def purchasePlaces():
         return redirect(url_for('book', competition=competition['name'], club=club['name']))
 
 
-# TODO: Add route for points display
+@app.route('/board')
+def showPointsBoard():
+    sortedClubs = sorted(clubs, key=lambda x: int(x['points']))
+    return render_template('board.html', clubs=sortedClubs)
 
 
 @app.route('/logout')
