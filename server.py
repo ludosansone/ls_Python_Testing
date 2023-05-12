@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, flash, url_for
 
 
@@ -28,11 +29,12 @@ def index():
 
 @app.route('/showSummary', methods=['POST'])
 def showSummary():
+    now = str(datetime.now())
     clubsList = [club for club in clubs if club['email'] == request.form['email']]
 
     if len(clubsList) > 0:
         club = clubsList[0]
-        return render_template('welcome.html', club=club, competitions=competitions)
+        return render_template('welcome.html', club=club, competitions=competitions, now=now)
     else:
         flash('Invalid email')
         return redirect(url_for('index'))
